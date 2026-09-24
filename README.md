@@ -1,19 +1,18 @@
 # Transaction Evaluation for Suspicious Indicators (TESI) Know-Your-Customer (KYC) Tool
 
 ## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+Transaction Evaluation for Suspicious Indicators (TESI©) is a simple tool developed by Sandia National Laboratories (SNL) to help chemical distributors, suppliers, and retailers implement Know Your Customer (KYC) best practices for dual-use chemicals.  In the scope of this tool, dual-use chemicals include chemicals defined by the Organisation for the Prohibition of Chemical Weapons (OPCW), Wassenaar Arrangement, or Australia Group, as well as toxic industrial chemicals that pose a risk if used in a malicious scenario.
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+The tool is designed around a framework that integrates an organization’s products, customers, sales, and shipping databases. This integrated database approach helps the facility to identify any abnormalities (or suspicious indicators) during the sale of their products which may be a security concern. The goal of TESI is to identify high-risk product sales by showing the seller suspicious indicators or “red flags” prior to the product being sold or otherwise provided to a customer.  
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+The KYC tool looks at a number of suspicious indicators, including validation of the customer (ensuring they are who they claim to be), scrutinizing unusual orders (may include orders outside the normal activity of a customer), changes in order placement or funding source, requesting unusual shipping routes or packaging, or asking unusual questions during the placement of the order which may raise suspicion about the intended use of the chemicals. The scope of the tool is for small-to-medium companies, but the underlying methodology can be applied across any organization selling products that may contain dual-use chemicals.  
+
+*NOTE: The TESI software is only one example of sales management or Customer Relationship Management (CRM) software that can be used. There are others in forms in varying complexity. We encourage further investigation into available software to best fit your management system needs.*
+
+A proper sales management system will ultimately lead to better data integration, automation, and data reporting capabilities for both the identification of suspicious indicators as well as sales management. These benefits not only reduce time and resource costs but also improve recordkeeping, which supports historical data analysis. The TESI software is easy to use and implements a chemical sales database system that supports broader sales operations. 
 
 ## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+Copyright 2026 National Technology & Engineering Solutions of Sandia, LLC (NTESS). Under the terms of Contract DE-NA0003525 with NTESS, the U.S. Government retains certain rights in this software.
 
 
 ## APP USAGE:
