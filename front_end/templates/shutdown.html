@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block title %}Index{% endblock %}
+{% block head %}
+  {{ super() }}
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/homePageStyles.css') }}">
+
+  <style type="text/css">
+    .important { color: #336699; }
+    .thumbnail {
+        text-align: center;
+        border: silver 1px solid;
+        background-color: #fff;
+        padding-bottom: 1em;
+    }
+    .thumbnail .bi {
+        font-size: 6em;
+    }
+    section {margin: 3em 0em;}
+
+    #menuBoxes a { text-decoration: none;}
+    #menuBoxes h3 {color: #003359;}
+
+  </style>
+{% endblock %}
+{% block content %}
+  <h2>TESI Application Shutdown Successfully</h2>
+  <br />
+  <br />
+  <br />
+  <h3>It is now safe to close this window.</h3>
+  <section>
+    Thank you for using the TESI Tool developed by NTESS! If you would like to re-open the TESI Tool, please double click on the application from your desktop to re-initiate connection. 
+  </section>
+{% endblock %}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% block head %}
+    <script src="{{ url_for('static', filename='/jquery/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='/script.js') }}"></script>
+    <script src="../static/bootstrap/js/bootstrap.bundle.js"></script>
+
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.css" type="text/css"></style>
+    <link rel="stylesheet" href="../static/assets/bootstrap-icons/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>{% block title %}{% endblock %} - TESI</title>
+    {% endblock %}
+  </head>
+  <body>
+    <a class="visually-hidden-focusable" href="#content">Skip to main content</a>
+    <div id="mainHeaderContainer">
+    <div class="container">
+         <div id="HeaderLogo"><img src="../static/assets/TESI Logo Thumbnail.png" alt="Sandia National Laboratories" /><span id="HeaderLogoText">TESI</span></div>
+        <header class="d-flex justify-content-center py-3 menu">
+          <ul class="nav nav-pills">
+            <li class="nav-item"><a href="{{ url_for('general_blueprint.home') }}" class="nav-link {{ 'active' if request.path == url_for('general_blueprint.home') }}" {{ "aria-current=page" if request.path == url_for('general_blueprint.home') }}>Home</a></li>
+            <li class="nav-item"><a href="{{ url_for('orders_blueprint.customer_order') }}" class="nav-link {{ 'active' if request.path == url_for('orders_blueprint.customer_order') }}" {{ "aria-current=page" if request.path == url_for('orders_blueprint.customer_order') }}>Orders</a></li>
+            <li class="nav-item"><a href="{{ url_for('customers_blueprint.customer_database') }}" class="nav-link {{ 'active' if request.path == url_for('customers_blueprint.customer_database') }}" {{ "aria-current=page" if request.path == url_for('customers_blueprint.customer_database') }}>Customers</a></li>
+            <li class="nav-item"><a href="{{ url_for('products_blueprint.product_database') }}" class="nav-link {{ 'active' if request.path == url_for('products_blueprint.product_database') }}" {{ "aria-current=page" if request.path == url_for('products_blueprint.product_database') }}>Products</a></li>
+            <li class="nav-item"><a href="{{ url_for('data_blueprint.data_landing_page') }}" class="nav-link {{ 'active' if request.path == url_for('data_blueprint.data_landing_page') }}" {{ "aria-current=page" if request.path == url_for('data_blueprint.data_landing_page') }}>Manage Data</a></li>
+            <li class="nav-item"><a href="{{ url_for('general_blueprint.about_tesi') }}" class="nav-link {{ 'active' if request.path == url_for('general_blueprint.about_tesi') }}" {{ "aria-current=page" if request.path == url_for('general_blueprint.about_tesi') }}>About</a></li>
+            <li class="nav-item"><a href="{{ url_for('shutdown_app') }}" class="nav-link {{ 'active' if request.path == url_for('shutdown_app') }}" {{ "aria-current=page" if request.path == url_for('shutdown_app') }}>Quit</a></li>
+          </ul>
+        </header>
+      </div>
+    </div>
+    <div id="mainContent">
+      <div id="content" class="container">{% block content %}{% endblock %}</div>
+    </div>
+    <div id="footer" class="container">
+      {% block footer %}
+      <hr />
+      &copy; Copyright 2024 by <a target="_blank" href="https://www.sandia.gov/"  rel="noopener noreferrer">NTESS</a>.
+      {% endblock %}
+    </div>
+  </body>
+</html>

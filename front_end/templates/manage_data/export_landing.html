@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% block title %}Data Page{% endblock %}
+{% block head %}
+{{ super() }}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/orderFormStyles.css') }}">
+<style type="text/css">
+  .important {
+    color: #336699;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+  <h3>Data Download</h3>
+  <br>
+  <form action="export_data" method="post" id="getDataBase" enctype="multipart/form-data">
+      <p style="display: inline; padding-right: 3.15cm;">What data would you like to download?</p>
+      <select name="corresponding-table" title="Choose Dataset">
+        <option value="" selected disabled hidden>Choose data here...</option>
+        <option value="products">Products</option>
+        <option value="customers">Customers</option>
+        <option value="orders">Orders</option>
+        <option value="customer_addresses">Customer Addresses</option>
+        <option value="customer_banks">Customer Banks</option>
+      </select>
+      <br>
+      <p style="display: inline; padding-right: 1cm;">What format would you like your data exported as?</p>
+      <select name="data-format" title="Choose file format">
+        <option value="" selected disabled hidden>Choose data format here...</option>
+        <option value="xlsx">Excel</option>
+        <option value="csv">CSV</option>
+        <option value="json">JSON</option>
+      </select>
+      <br>
+      <br>
+      <input type="hidden" name="download-file" value="Download Data">
+      <button type="submit" class="btn btn-primary">Download Data</button>
+  </form>
+  <br>
+{% endblock %}

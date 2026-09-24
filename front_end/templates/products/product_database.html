@@ -1,0 +1,141 @@
+{% extends "./layout.html" %}
+{% block title %}Index{% endblock %}
+{% block head %}
+  {{ super() }}
+  
+  <!--
+  <script src="{{ url_for('static', filename='js/productFormScript.js') }}"></script>
+  -->
+  <!-- <script src="{{ url_for('static', filename='script.js') }}" type="module"></script> -->
+  <script type="module" src="{{ url_for('static', filename='js/productDatabaseScript.js') }}"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/productPageStyles.css') }}">
+  
+  <style type="text/css">
+    .important { color: #336699; }
+  </style>
+{% endblock %}
+{% block content %}
+  <h1>Products</h1>
+  <div id="AddNewContainer"><button type="button" name="AddProduct" id="AddProduct" class="btn btn-primary">Add Product</button></div>
+  <div class="dropdown" id="selector">
+    <button class="btn btn-primary dropbtn">Select Columns</button>
+    <div class="dropdown-content columnSelector">
+      <!-- Auto Populated -->
+    </div>
+</div>
+  <p class="important">
+    {% set selectedIndex = 1 %}
+      {% set selectedItem = products %}
+    <div class="row">
+    <div id="table-section" class="col-md-8">
+    <!--   Consider using a library like https://github.com/plumdog/flask_table   -->
+    <table class="database-table" id="products-table">
+      <thead>
+      <tr>
+        <th class="sortable">Product ID</th>
+        <th class="sortable">Product Number</th>
+        <th class="sortable">Product Name</th>
+        <th class="sortable">CAS Number</th>
+        <th class="sortable">Material Packaging</th>
+        <th class="sortable">Size</th>
+        <th class="sortable">GHS Hazard Codes</th>
+        <th class="sortable">Concerns</th>
+        <th class="sortable">Hazards</th>
+        <th>Actions</th>
+      </tr>
+      <tr class="columnFilter">
+        <th><input type="text" class="filterbox" name="idFilter" aria-label="Filter Product IDs" /></th>
+        <th><input type="text" class="filterbox" name="numberFilter" aria-label="Filter Product Numbers" /></th>
+        <th><input type="text" class="filterbox" name="nameFilter" aria-label="Filter Product Names" /></th>
+        <th><input type="text" class="filterbox" name="casNumFilter" aria-label="Filter CAS Numbers" /></th>
+        <th><input type="text" class="filterbox" name="packagingFilter" aria-label="Filter Packaging Types" /></th>
+        <th><input type="text" class="filterbox" name="sizFilter" aria-label="Filter Sizes" /></th>
+        <th><input type="text" class="filterbox" name="hazard_codesFilter" aria-label="Filter Concerns" /></th>
+        <th><input type="text" class="filterbox" name="conernsFilter" aria-label="Filter Concerns" /></th>
+        <th><input type="hidden"></th>
+        <th><input type="hidden"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for product in products %}
+      <TR data-productId="{{ product.product_id }}" data-indexNum="{{ product.index }}">
+        <TD class="c2">{{product.product_id}}</TD>
+        <TD class="c2">{{product.facility_product_id}}</TD>
+        <TD class="c2">{{product.name}}</TD>
+        <TD class="c3">{{product.cas_numbers}}</TD>
+         <TD class="c4">{{product.packaging}}</TD>
+         <TD class="c4">{{product.size}}</TD>
+         <TD class="c4">{{product.hazard_codes}}</TD>
+         <TD class="c4">{{product.other_issues}}</TD>
+         <TD class="c4">
+          {% if product.concerns -%}
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-octagon-fill hazardous-icon" viewBox="0 0 16 16">
+            <path d="M11.46.146A.5.5 0 0 0 11.107 0H4.893a.5.5 0 0 0-.353.146L.146 4.54A.5.5 0 0 0 0 4.893v6.214a.5.5 0 0 0 .146.353l4.394 4.394a.5.5 0 0 0 .353.146h6.214a.5.5 0 0 0 .353-.146l4.394-4.394a.5.5 0 0 0 .146-.353V4.893a.5.5 0 0 0-.146-.353L11.46.146zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+          </svg>
+          {%- endif %}
+        </TD>
+         <TD class="c5">
+          <a href="#" title="Edit {{ product.name }}" data-item_id="{{ product.product_id }}" class="editIcon" role="button"><i class="bi bi-pencil-fill"></i></a>
+          <a href="#" title="Delete {{ product.name }}" data-item_id="{{ product.product_id }}" class="deleteIcon" role="button"><i class="bi bi-trash-fill"></i></a>
+        </TD>
+      </TR>
+      {% endfor %}
+    </tbody>
+      </table>
+    </div>
+
+    <div id="form-section" class="col-md-4">
+      <h2>Product Risk Assessment</h2>
+      
+      <form action="#" method="post" name="productForm" id="productForm">
+        <label for="productID">ID</label>
+        <input type="text" name="productID" id="productID" class="form-control" value="" readonly />
+        
+        <label for="facility_product_id">Product Number</label>
+        <input type="text" name="facility_product_id" id="facility_product_id" class="form-control" value="" required />
+
+        <label for="productName">Product</label>
+        <input type="text" name="productName" id="productName" class="form-control" value="" required />
+        
+        <label for="cas_numbers">CAS Number</label>
+        <input type="text" name="cas_numbers" id="cas_numbers" class="form-control" required />
+        
+        <label for="physical_state_id">Physical State</label>
+        <select name="physical_state_id" id="physical_state_id" class="form-control" required>
+          <option disabled selected value> -- Select State -- </option>
+          <option value="1">Gas</option>
+          <option value="2">Liquid</option>
+          <option value="3">Solid</option>
+        </select>
+
+        <label for="packaging">Packaging</label>
+        <select name="packaging" id="packaging" class="form-control" required>
+          <option disabled selected value> -- Select Packaging -- </option>
+          {% for package in packaging_types %}
+          <option value="{{ package.packaging_type_id }}">{{ package.packaging_type_name }}</option>
+          {% endfor %}
+          </select>
+          
+          <label for="size">Size</label>
+        <input type="text" name="size" id="size" class="form-control" />
+        
+        <label for="hazard_code">GHS Hazard Codes</label>
+        <input type="text" name="hazard_code" id="hazard_code" class="form-control" />
+        
+        <label for="other_issues">Other Issues of Security Concern</label>
+        <textarea name="other_issues" id="other_issues" class="form-control"></textarea>
+        
+        <label class="form-check-label" for="concerns">
+          Concerns
+        </label>
+        <div class="form-check form-switch">
+          <input class="form-check-input concernSwitch" type="checkbox" value="1"  role="switch" id="concerns" name="concerns">
+        </div>
+        <br />
+        <br />
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-primary cancel">Cancel</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

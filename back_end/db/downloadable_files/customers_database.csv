@@ -1,0 +1,8 @@
+customer_id,customer_name,phone_number,poc_name,poc_email,hq_country,address_proof_type_id,address_proof_type,address_proof_accept,poc_dob,poc_nationality,poc_parent_name,business_num,business_type,third_party_ref_name,third_party_contact_info,payment_method_id,payment_method,order_frequency,sanctioned,trusted_customer,verification_date,facility_customer_id
+1,Acme Chem,+22 830-999-5555,Joseph Haydn,jhay@majorsharp.com,Checkia,2.0,,,,,,,,,,5,,,,,,H-332-276
+2,ABChem,+05 454-545-2222,Andrew Toba,tobaa@abchem.com,Argentina,2.0,,,2023-12-07,Czech,,,,,,4,,,1.0,,,
+3,Total Chem Sales,+02 333-555-0202,Omar Canon,omar@tcs.com,Canada,1.0,,,,,,,,,,1,,,,,,
+4,AC Chemical Traders,5552322020,Louis Rivera,lriver@act.com,Chile,3.0,,,2023-12-07,,,,,,,3,,,,,,
+5,ウガンダ共和国カンパラ、カムウォキャ（Kamwokya）カンジョキャ通り（Kanjokya Street）Plot 22、電話番号：+256-41-533-578/9、,123-456-7890,Lisa,lisa@ooo.com,Russia,,,,,,,,,,,3,,,,,,
+10,Amani al-Salam,,,jhay@majorsharp.com,United States,3.0,,,,,,,,,,3,,,,,,C-33204
+32,Pro Supply,+22 830-999-5555,Juan Chavez,,Argentina,1.0,,,,,,,,,,1,,,,,,C-33205

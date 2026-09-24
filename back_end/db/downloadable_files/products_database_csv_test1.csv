@@ -1,0 +1,6 @@
+product_id,name,description,cas,physical_state_id,packaging,packaging_type_id,size,hazard_codes,other_issues,concerns,facility_product_id
+1,Sulfuric Acid,,7664-93-9 ,,1,,500 ml,"GHS02, GHS05",,1,
+2,Lithium,,7439-93-2 ,,2,,10 oz,"GHS05, GHS06, GHS08",,,
+4,Carbon,,481066-70-0,,2,,500 g,,,,
+14,Lithium,,7439-93-2,,1,,100 ml,H204,Explosive,1,
+15,Triethanolamine,,102716,,1,,4 L,,Dual Use,1,

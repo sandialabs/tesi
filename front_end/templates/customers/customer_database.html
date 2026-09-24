@@ -1,0 +1,380 @@
+{% extends "./layout.html" %}
+{% block title %}Index{% endblock %}
+{% block head %}
+{{ super() }}
+
+<script type="module" src="{{ url_for('static', filename='js/customerDatabaseScript.js') }}"></script>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/customerPageStyles.css') }}">
+
+
+<style type="text/css">
+  .important {
+    color: #336699;
+  }
+</style>
+{% endblock %}
+{% block content %}
+<h1>Customers</h1>
+<div id="AddNewContainer"><button type="button" name="AddCustomer" id="AddCustomer" class="btn btn-primary">Add
+    Customer</button></div>
+    <div class="dropdown" id="selector">
+      <button class="btn btn-primary dropbtn">Select Columns</button>
+      <div class="dropdown-content columnSelector">
+        <!-- Auto Populated -->
+      </div>
+  </div>
+<p class="important">
+
+<div class="row">
+  <div id="table-section" class="col-md-8">
+    <!--   Consider using a library like https://github.com/plumdog/flask_table   -->
+    {% if customers -%}
+    <!-- 
+    "customer_name": None, 
+    "phone_number": None, 
+    "poc_name": None, 
+    "poc_email": None,
+    "hq_country": None,
+    "address_proof_type_id": None,
+    "address_proof_accept": None,
+    "poc_dob": None,
+    "poc_nationality": None,
+    "poc_parent_name": None,
+    "business_num": None,
+    "business_type": None,
+    "third_party_ref_name": None,
+    "third_party_contact_info": None,
+    "payment_method_id": None,
+    "order_frequency": None,
+    "sanctioned": None,
+    "trusted_customer": None,
+    "verification_date": None,
+    "facility_customer_id": None
+      -->
+    <table class="database-table" id="customers-table">
+      <thead>
+        <tr>
+          <th class="sortable">Customer Name</th>
+          <th class="sortable">Telephone</th>
+          <th class="sortable">POC Name</th>
+          <th class="sortable">POC Email</th>
+          <th class="sortable">Country</th>
+          <th class="sortable">Sanctioned</th>
+          <th class="sortable">Business Number</th>
+          <th class="sortable">Verification Date</th>
+          <th class="sortable">Payment Method</th>
+          <th>Actions</th>
+        </tr>
+        <tr class="columnFilter">
+          <th><input type="text" class="filterbox" name="nameFilter" aria-label="Filter Customer Names" /></th>
+          <th><input type="text" class="filterbox" name="telephoneFilter" aria-label="Filter Telephone Number" /></th>
+          <th><input type="text" class="filterbox" name="pocNameFilter" aria-label="Filter POC Names" /></th>
+          <th><input type="text" class="filterbox" name="pocEmailFilter" aria-label="Filter POC Emails" /></th>
+          <th><input type="text" class="filterbox" name="countryFilter" aria-label="Filter Countries" /></th>
+          <th><input type="text" class="filterbox" name="sanctionFilter" aria-label="Filter Sanctioned" /></th>
+          <th><input type="text" class="filterbox" name="numberFilter" aria-label="Filter Business Number" /></th>
+          <th><input type="text" class="filterbox" name="verificationFilter" aria-label="Filter Verified" /></th>
+          <th><input type="text" class="filterbox" name="paymentFilter" aria-label="Filter Payment" /></th>
+          <th><input type="hidden"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for customer in customers %}
+        {% set payment_method_names = [] %}
+        {% for key,method in payment_methods %}
+        {% set payment_method_names = payment_method_names.append(method) %}
+        {% endfor %}
+        <TR data-customerId="{{ customer.customer_id }}">
+          <TD class="c2">{{customer.customer_name}}</TD>
+          <TD class="c3">{{customer.phone_number}}</TD>
+          <TD class="c4">{{customer.poc_name}}</TD>
+          <TD class="c4">{{customer.poc_email}}</TD>
+          <TD class="c4">{{customer.hq_country}}</TD>
+          <TD class="c5">
+            {% if customer.sanctioned -%}
+            Yes 
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-octagon-fill hazardous-icon" viewBox="0 0 16 16">
+              <path d="M11.46.146A.5.5 0 0 0 11.107 0H4.893a.5.5 0 0 0-.353.146L.146 4.54A.5.5 0 0 0 0 4.893v6.214a.5.5 0 0 0 .146.353l4.394 4.394a.5.5 0 0 0 .353.146h6.214a.5.5 0 0 0 .353-.146l4.394-4.394a.5.5 0 0 0 .146-.353V4.893a.5.5 0 0 0-.146-.353L11.46.146zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </svg>
+            {% else %}
+              No
+            {%- endif %}
+          </TD>
+          <TD class="c5">{{customer.business_num}}</TD>
+          <TD class="c5">{{customer.verification_date}}</TD>
+          <TD class="c5">{{ payment_method_names[customer.payment_method_id - 1] }}</TD>
+          <TD class="c6">
+            <a href="#" title="Edit {{ customer.customer_name }}" data-item_id="{{ customer.customer_id }}"
+              class="editIcon" role="button"><i class="bi bi-pencil-fill"></i></a>
+            <a href="#" title="Delete {{ customer.customer_name }}" data-item_id="{{ customer.customer_id }}"
+              class="deleteIcon" role="button"><i class="bi bi-trash-fill"></i></a>
+          </TD>
+        </TR>
+        {% endfor %}
+      </tbody>
+    </table>
+    {%- endif %}
+  </div>
+
+
+  <div id="form-section" class="col-md-10">
+    <h2>Customer Verification</h2>
+    <form action="#" method="post" name="customerForm" id="customerForm">
+      <label for="customer_id">ID</label>
+      <input type="text" name="customer_id" id="customer_id" class="form-control" readonly />
+
+      <div class="row align-items-start">
+        <div class="col">
+          <label for="customer_name">Name</label>
+          <input type="text" name="customer_name" id="customer_name" class="form-control" required />
+
+          <label for="poc_name">POC Name</label>
+          <input type="text" name="poc_name" id="poc_name" class="form-control" required />
+
+          <label for="facility_customer_id">Customer Number</label>
+          <input type="text" name="facility_customer_id" id="facility_customer_id" class="form-control" />
+
+        </div>
+        <div class="col">
+          <label for="phone_number">Telephone</label>
+          <input type="text" name="phone_number" id="phone_number" class="form-control" required />
+
+          <label for="poc_email">POC Email</label>
+          <input type="email" name="poc_email" id="poc_email" class="form-control" />
+        </div>
+      </div>
+      <div class="row align-items-start">
+        <div class="col">
+
+          <label for="hq_country">Country</label>
+          <input type="text" name="hq_country" id="hq_country" class="form-control" required />
+        </div>
+        <div class="col" id="customer_addresses_block">
+          <label for="customer_address_1" id="address_block_label">Addresses</label>
+          <!-- <textarea name="customer_address" id="customer_address" class="form-control"></textarea> -->
+          <textarea name="customer_address_1" class="form-control customerAddress" aria-label="Address" required="" id="customer_address_1"></textarea>
+
+
+        </div>
+      </div>
+      <div class="row align-items-start">
+        <div class="col">
+        </div>
+        <div class="col">
+          <input type="button" id="btnAddAddress" class="btn btn-primary subformButtons" value="Add New Address" />
+
+          <div class="row align-items-start" id="addressFormDiv">
+            <label for="new_address">New Address</label>
+            <textarea form="newAddressForm" name="new_address" id="new_address" class="form-control"></textarea>
+          </div>
+          <input type="button" form="newAddressForm" id="submitAddress" class="btn btn-primary subformButtons"
+            value="Save Address" />
+          <input type="button" form="newAddressForm" id="cancelAddress" class="btn btn-primary subformButtons"
+            value="Cancel" />
+        </div>
+      </div>
+
+
+
+      <div class="row align-items-start">
+        <div class="col">
+          <label class="form-check-label" for="address_proof_type_id">Form of Address Verification</label>
+          <select name="address_proof_type_id" id="address_proof_type_id" class="form-control">
+            <option disabled selected value> -- Select -- </option>
+            {% for proof in address_proofs %}
+            <option value="{{ proof.address_proof_type_id }}">{{ proof.proof_type }}</option>
+            {% endfor %}
+          </select>
+
+          <label for="poc_dob">POC Date of Birth</label>
+          <input type="date" name="poc_dob" id="poc_dob" class="form-control" />
+        </div>
+        <div class="col">
+          <label for="address_proof_accept">Address Successfully Verified?</label>
+          <div>
+            <div class="form-check form-switch">
+              <input class="form-check-input concernSwitch address_proof_accept" type="checkbox" value="Yes"
+                role="switch" id="address_proof_accept" name="address_proof_accept">
+            </div>
+          </div>
+          <br />
+
+          <label for="poc_nationality">POC Nationality</label>
+          <input type="text" name="poc_nationality" id="poc_nationality" class="form-control" />
+        </div>
+      </div>
+
+
+
+      <div class="row align-items-start">
+        <div class="col">
+          <label for="poc_parent_name">POC Father's name/Mother's name</label>
+          <input type="text" name="poc_parent_name" id="poc_parent_name" class="form-control" />
+        </div>
+        <div class="col">
+        </div>
+      </div>
+
+      <div class="row align-items-start">
+        <div class="col">
+          <label for="business_num">Business Number</label>
+          <input type="text" name="business_num" id="business_num" class="form-control" />
+        </div>
+        <div class="col">
+          <label for="business_type">Business Type</label>
+          <input type="text" name="business_type" id="business_type" class="form-control" />
+        </div>
+      </div>
+      <div class="row align-items-start">
+        <div class="col">
+          <label for="trusted_customer">Trusted Customer</label>
+          <div>
+            <div class="form-check form-switch">
+              <input class="form-check-input trusted_customer" type="checkbox" value="Yes" role="switch"
+                id="trusted_customer" name="trusted_customer">
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <label for="verification_date">Verification Date</label>
+          <input type="date" name="verification_date" id="verification_date" class="form-control" />
+        </div>
+      </div>
+
+      <div class="row align-items-start">
+        <div class="col">
+          <label for="third_party_ref_name">Third party reference name</label>
+          <input type="text" name="third_party_ref_name" id="third_party_ref_name" class="form-control" />
+        </div>
+        <div class="col">
+          <label for="third_party_contact_info">Third party reference contact information</label>
+          <input type="text" name="third_party_contact_info" id="third_party_contact_info" class="form-control" />
+        </div>
+      </div>
+
+
+      <h2>Financial Verification</h2>
+      <div id="banks_block">
+        <div class="row align-items-start">
+          <div class="col">
+            <label for="bank_name">Bank Names</label>
+          </div>
+          <div class="col">
+            <label for="bank_address">Bank Addresses</label>
+          </div>
+        </div>
+        <div class="row align-items-start" id="bank_row">
+          <div class="col">
+            <input type="text" name="bank_name" class="form-control" aria-label="Bank Name" />
+          </div>
+          <div class="col">
+            <textarea type="text" name="bank_address" class="form-control bankAddress"
+              aria-label="Bank Address"></textarea>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      <input type="button" class="btn btn-primary subformButtons" id="btnAddBank" for="newBankForm"
+        value="Add New Bank" />
+      <div class="row align-items-start hidden" id="bankFormDiv">
+        <div class="col">
+          <label for="new_bank_name">New Bank Name</label>
+          <input type="text" form="newBankForm" name="bank_name" id="new_bank_name" class="form-control" />
+        </div>
+        <div class="col">
+          <label for="new_bank_address">New Bank Address</label>
+          <textarea form="newBankForm" name="bank_address" id="new_bank_address" class="form-control"></textarea>
+
+        </div>
+
+      </div>
+      <input type="button" form="newBankForm" id="submitBankAddress" class="btn btn-primary subformButtons hidden"
+        value="Save Bank" />
+      <input type="button" form="newBankForm" id="cancelBankAddress" class="btn btn-primary subformButtons hidden"
+        value="Cancel" />
+
+
+      <div class="row align-items-start">
+        <div class="col">
+          <label class="form-check-label" for="payment_method_id">Payment Method</label>
+          <select name="payment_method_id" id="payment_method_id" class="form-control" required>
+            <option disabled selected value> -- Select -- </option>
+            {% for method in payment_methods %}
+            <option value="{{ method.payment_method_id }}">{{ method.payment_method_name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col">
+          <label class="form-check-label" for="order_frequency">Frequency of Ordering</label>
+          <div class="form-check form-switch">
+            <input class="form-check-input freqSwitch product_tracking" type="checkbox" value="Regular" role="switch"
+              id="order_frequency" name="order_frequency">
+          </div>
+        </div>
+      </div>
+
+      <div class="row align-items-start">
+        <div class="col">
+          <label class="form-check-label" for="sanctioned">Company or financial institute on any sanctioned
+            list?</label>
+          <select name="sanctioned" id="sanctioned" class="form-control">
+            <option disabled selected value> -- Select -- </option>
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+            <option value="2">Unsure</option>
+          </select>
+        </div>
+        <div class="col">
+
+        </div>
+      </div>
+      <br />
+      <br />
+      <button type="submit" id="submitCustomer" class="btn btn-primary">Save</button>
+      <button type="button" class="btn btn-primary cancel">Cancel</button>
+    </form>
+  </div>
+</div>
+
+
+<form action="#" method="post" id="newAddressForm" name="newAddressForm"></form>
+<form action="#" method="post" id="newBankForm"></form>
+
+<!-- Sectioned entity alert modal -->
+<div class="modal fade" id="sanctionedEntity" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="sanctionedEntityLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="sanctionedEntityLabel">Sactioned Entity Search Results</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>The information of the bank, buisness, or individual which you entered returned possible matches to
+          internationally sanction entities. If you believe any of these matches are correct, confirm below.</p>
+        <table id="sanctionResults">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Alias</th>
+              <th>Address</th>
+              <th>Country</th>
+              <th>Authority</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="confirmSanctioned" data-bs-dismiss="modal"
+          data-entityID="">Confirm Sanctioned</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

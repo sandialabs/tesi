@@ -1,0 +1,115 @@
+#AddNewContainer {
+  display: inline-block;
+  margin-right: 3em;
+}
+
+.hazardous-icon {
+  display: inline-block;
+}
+  
+  /* Switch controls */
+  .form-switch .form-check-input {
+    width: 4.3em;
+    height: 1.8em;
+    margin-bottom: 0em;
+  }
+  
+  .form-switch .form-check-input.freqSwitch {
+    width: 6.5em;
+  }
+
+  .form-switch .form-check-input.concernSwitch {
+    background-color: var(--tesi-orange);
+    border-color: var(--tesi-orange);
+  }
+
+  .form-switch input.form-check-input:checked::before {
+    content: "Yes";
+    padding-left: .9em;
+    color: white;
+    font-size: .9em;
+}
+
+.form-switch input.form-check-input::before {
+    content: "No";
+    padding-left: 2.4em;
+    /*color: white;*/
+    font-size: .9em;
+}
+
+.form-switch input.form-check-input.freqSwitch:checked::before {
+  content: "Sporadic";
+  padding-left: 1em;
+}
+
+.form-switch .form-check-input.freqSwitch::before{
+  content: "Regular";
+}
+
+.form-switch .form-check-input.concernSwitch:checked {
+  background-color: var(--tesi-blue);
+  border-color: var(--tesi-blue);
+}
+
+.form-switch input.form-check-input.concernSwitch::before {
+  color: white;
+}
+
+#btnAddAddress, #addressFormDiv, #cancelAddress, #submitAddress, #btnAddBank, #submitBankAddress, .subformButtons {
+  width: unset;
+  display: none;
+}
+
+.hidden {
+  display: none;
+}
+
+.sanctioned {
+  border: 3px solid var(--tesi-orange);
+}
+
+.sanctioned_warning {
+  color: var(--tesi-orange);
+  font-weight: bold;
+}
+
+#sanctionedEntity td {
+  padding: 3px 5px;
+}
+
+.hidden {
+  display: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.columnSelector input {
+  margin-right: .4em;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content label {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content label:hover {
+  background-color: #f1f1f1;
+}
+
+.show {
+  display: block;
+}

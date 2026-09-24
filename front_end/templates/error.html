@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block title %}Import Data{% endblock %}
+{% block head %}
+{{ super() }}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/orderFormStyles.css') }}">
+<style type="text/css">
+  .important {
+    color: #336699;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>{{ args.error }}</h1>
+        <h2>Error:</h2>
+        <pre>{{ args.message }}</pre>
+        <hr>
+        <a href="/">Go back to Tesi Tool.</a>
+    </div>
+{% endblock %}

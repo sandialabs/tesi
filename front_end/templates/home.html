@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+{% block title %}Index{% endblock %}
+{% block head %}
+  {{ super() }}
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/homePageStyles.css') }}">
+
+{% endblock %}
+{% block content %}
+  <h2>Welcome to TESI</h2>
+  <br />
+  <section id="menuBoxes">
+    <div class="row">
+        <div class="col-sm-4 col-md-3" id="ordersTile">
+            <a href="/orders/customer_order">
+          <div class="thumbnail">
+            <i class="bi bi-cart4"></i>
+            <div class="caption">
+              <h3>Orders</h3>
+            </div>
+          </div>
+        </a>
+        </div>
+
+        <div class="col-sm-4 col-md-3" id="customersTile">
+            <a href="/customers/customer_database">
+            <div class="thumbnail">
+                <i class="bi bi-people-fill"></i>
+              <div class="caption">
+                <h3>Customers</h3>
+              </div>
+            </div>
+            </a>
+          </div>
+
+          <div class="col-sm-4 col-md-3" id="productsTile">
+            <a href="/products/product_database">
+            <div class="thumbnail">
+                <i class="bi bi-upc-scan"></i>
+              <div class="caption">
+                <h3>Products</h3>
+              </div>
+            </div>
+            </a>
+          </div>
+
+          <div class="col-sm-4 col-md-3" id="facilityTile">
+            <a href="/facility_overview">
+            <div class="thumbnail">
+                <i class="bi bi-geo-fill"></i>
+              <div class="caption">
+                <h3>Facility Overview</h3>
+              </div>
+            </div>
+            </a>
+          </div>
+      </div>
+</section>
+  <h3>The Transaction Evaluation for Suspicious Indicators (TESI) Tool</h3>
+  <section>"The TESI tool is free software provided with permission from Sandia National Laboratories and the Department of State, Chemical Security Program (CSP). You are permitted to copy and distribute only verbatim copies .  TESI is for non-profit purposes, and is not for sale, resale, lease or any other form of commercial distribution. 
+    Sandia National Laboratories is a multimission laboratory managed and operated by National Technology and Engineering Solutions of Sandia, LLC, a wholly owned subsidiary of Honeywell International Inc., for the U.S. Department of Energy’s National Nuclear Security Administration under contract DE-NA0003525.SAND2023-02074O".
+    </section>
+{% endblock %}

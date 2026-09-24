@@ -1,0 +1,7 @@
+[
+    {"product_id":1,"name":"Sulfuric Acid","description":null,"cas":"7664-93-9 ","physical_state_id":null,"packaging":"1","packaging_type_id":null,"size":"500 ml","hazard_codes":"GHS02, GHS05","other_issues":"","concerns":1,"facility_product_id":null},
+    {"product_id":2,"name":"Lithium","description":null,"cas":"7439-93-2 ","physical_state_id":null,"packaging":"2","packaging_type_id":null,"size":"10 oz","hazard_codes":"GHS05, GHS06, GHS08","other_issues":"","concerns":"","facility_product_id":null},
+    {"product_id":4,"name":"Carbon","description":null,"cas":"481066-70-0","physical_state_id":null,"packaging":"2","packaging_type_id":null,"size":"500 g","hazard_codes":"","other_issues":"","concerns":null,"facility_product_id":null},
+    {"product_id":14,"name":"Lithium","description":null,"cas":"7439-93-2","physical_state_id":null,"packaging":"1","packaging_type_id":null,"size":"100 ml","hazard_codes":"H204","other_issues":"Explosive","concerns":1,"facility_product_id":null},
+    {"product_id":15,"name":"Triethanolamine","description":null,"cas":102716,"physical_state_id":null,"packaging":"1","packaging_type_id":null,"size":"4 L","hazard_codes":"","other_issues":"Dual Use","concerns":1,"facility_product_id":null}
+]

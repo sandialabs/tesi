@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block title %}Index{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    .important { color: #336699; }
+  </style>
+{% endblock %}
+{% block content %}
+    {% if test_var %}
+    <h1>Test Jinja Formatting {{ test_var }}!</h1>
+  {% else %}
+    <h1>No Jinja Variable Provided</h1>
+  {% endif %}
+{% endblock %}

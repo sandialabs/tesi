@@ -1,0 +1,132 @@
+/* Theme Colors
+Primary: #00ADD0
+Primary Highlight (hover): #0095B3
+Primary Light: #E5FBFF
+Secondary: #7C0D7B
+Secondar Highlight (hover): #B913B6
+Secondary Light: #FDE8FC
+Accent: #F37746
+Accent Light: #FCDCCF
+Text Dark: #000
+Text Light: #fff
+
+
+Purple: #7C0D7B
+Blue (TESI Blue): #00ADD0
+Dark Blue: #3C40BA
+Green: #018E74
+Orange: #F37746
+Yellow: #D9A443
+*/
+
+/*
+Tile and navigational color scheme
+
+Customer - Yellow
+Products - Blue
+Manage Orders - Green
+Facility Overview - Dark Blue
+Navigation - Purple
+*/
+
+:root {
+    --tesi-purple: #7C0D7B;
+    --tesi-blue: #00ADD0;
+    --tesi-dark-blue: #294EC4;
+    --tesi-green: #018E74;
+    --tesi-orange: #F37746;
+    --tesi-yellow: #D9A443;
+    --tesi-red: #A62103;
+    --main-bg-color: #E5FBFF;
+    --nav-text-color: var(--tesi-purple, #7C0D7B);
+  }
+
+
+#mainContent {
+    background-color: var(--main-bg-color);
+    padding: 2em 0em;
+}
+
+#mainHeaderContainer {
+    background-color: #fff;
+}
+
+#HeaderLogo {
+    float: left;
+    position: absolute;
+}
+#HeaderLogo img {
+    height: 5em;
+    padding-top: .7rem!important;
+    padding-bottom: 1rem!important;
+    margin-right: 8px;
+}
+
+#HeaderLogoText {
+    font-weight: bold;
+    font-size: xx-large;
+    color: var(--nav-text-color, #7C0D7B);
+}
+
+.menu {
+  position: initial;
+  width: 100%;
+  padding-left: 9em;
+}
+
+/* Common stules fpor forms and tables */
+.database-table {
+    width: 100%;
+  }
+
+  .database-table th {
+    padding: 0em 2em 0em 0em;
+    min-width: 120px;
+  }
+  
+.filterbox {
+  width: 100%;
+  min-width: 7em;
+}
+
+  .hazardous-icon {
+    color: var(--tesi-red, maroon);
+    display: block;
+    margin: auto;
+  }
+  
+  #form-section {
+    display: none;
+    padding-left: 2em;
+  }
+  
+  #form-section label {
+    margin-right: 6px;
+  }
+  
+  #form-section input:not([type=checkbox]), select, textarea {
+    margin-bottom: 6px;
+  }
+  
+  #form-section button, input[type="submit"], input[type="button"] {
+    margin-right: 2em;
+    width: 6em;
+  }
+
+  
+.deleteIcon {
+  margin-left: .2em;
+  font-size: 1.3em;
+}
+
+.editIcon {
+  font-size: 1.3em;
+}
+
+.deleteIcon:hover {
+  color: var(--tesi-red);
+}
+
+input[type="text"]:read-only, input[type="textarea"]:read-only {
+  background-color: Gainsboro;
+}

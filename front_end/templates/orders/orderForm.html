@@ -1,0 +1,676 @@
+{% extends "./layout.html" %}
+{% block title %}Index{% endblock %}
+{% block head %}
+{{ super() }}
+
+<script type="module" src="{{ url_for('static', filename='js/orderFormScript.js') }}"></script>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/orderFormStyles.css') }}">
+
+<style type="text/css">
+  .important {
+    color: #336699;
+  }
+</style>
+{% endblock %}
+{% block content %}
+<h1>Orders</h1>
+
+<!-- Tabs List -->
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item" role="presentation">
+    <button class="nav-link active" id="newOrder-tab" data-bs-toggle="tab" data-bs-target="#newOrder" type="button"
+      role="tab" aria-controls="newOrder" aria-selected="true">New Order</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="activeOrders-tab" data-bs-toggle="tab" data-bs-target="#activeOrders" type="button"
+      role="tab" aria-controls="activeOrders" aria-selected="false">Active Orders</button>
+  </li>
+  <li class="nav-item" role="presentation">
+    <button class="nav-link" id="allOrders-tab" data-bs-toggle="tab" data-bs-target="#allOrders" type="button"
+      role="tab" aria-controls="allOrders" aria-selected="false">All Orders</button>
+  </li>
+</ul>
+
+
+<!-- Content of Tabbed Sections -->
+<div class="tab-content" id="myTabContent">
+
+  <!-- Order Form Tab -->
+  <div class="tab-pane fade show active" id="newOrder" role="tabpanel" aria-labelledby="newOrder-tab">
+    <br />
+    <div class="dropdown">
+      <button type="button" class="dropbtn btn btn-primary filterButton" id="cmdCompany">Select Company</button>
+      <div id="myDropdown" class="dropdown-content">
+        <!-- <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()"> -->
+        <input type="text" placeholder="Search.." class="filterInput">
+        {% for customer in customers %}
+        <a href="#about" class="customerSelection" data-customer_id="{{ customer.customer_id }}"
+          data-customer_name="{{ customer.customer_name }}">{{ customer.customer_name }}</a>
+        {% endfor %}
+      </div>
+    </div>
+    <input type="hidden" name="customer_id" id="customer_id" form="orderForm" />
+
+    <h2 id="customer_heading"></h2> <span id="sanctioned_entity">*Sanctioned Entity*</span>
+
+    <form method="post" name="orderForm" id="orderForm" class="orderFormDisplay">
+      <input type="hidden" name="order_id" id="order_id" value="" />
+      <div class="row align-items-start">
+        <div id="leftPanel" class="col-md-8">
+          <h3>Order Details</h3>
+          <div class="row align-items-start">
+            <div class="col">
+              <label for="facility_order_id">Order Number</label>
+              <input type="text" name="facility_order_id" id="facility_order_id" class="form-control" required />
+
+              <label for="order_date">Order Date</label>
+              <input type="date" name="order_date" id="order_date" class="form-control" required />
+            </div>
+            <div class="col">
+              <label for="poc_name">POC Name</label>
+              <input type="text" name="poc_name" id="poc_name" class="form-control" form="orderForm" required />
+
+              <label for="delivery_date">Delivery Date</label>
+              <input type="date" name="delivery_date" id="delivery_date" class="form-control" form="orderForm" />
+            </div>
+          </div>
+          <div id="productList">
+            <h4>Products Requested</h4>
+            <div id="productRows">
+              <div id="product1" class="repeatable">
+                <div class="dropdown">
+                  <input type="button" name="product[1][product_name]" class="form-control product_name filterButton"
+                    value="Product Name" required />
+                  <!-- <input type="text" name="product[1][product_name]" class="product_name filterButton" placeholder="Product Name" /> -->
+                  <div id="myDropdown2" class="dropdown-content">
+                    <input type="text" placeholder="Search.." class="filterInput">
+                    {% for product in products %}
+                    <a href="#" class="productSelection" data-product_name="{{ product.name }}">{{ product.name }}</a>
+                    {% endfor %}
+                  </div>
+                </div>
+                <select name="product[1][product_size]" title="Unit Size" class="form-control unitSize">
+                  <option disabled selected value> -- Select Size -- </option>
+                </select>
+                <!-- <input type="text" name="product[1][product_size]" placeholder="Unit Size" class="unitSize"
+                  data-product_id="#" /> -->
+                <input type="number" name="product[1][product_number]" class="form-control number_units"
+                  placeholder="Number Units" />
+                <!-- <input type="text" name="product[1][other_issues]" placeholder="Concerns"
+                  class="form-control other_issues" disabled /> -->
+                <input type="hidden" name="product[1][concerns]" class="hazards" />
+                <input type="hidden" name="product[1][order_item_id]" class="order_item_id" />
+                <span class="hazardousFlag">
+                </span>
+                <span class="securityFlag">
+                </span>
+                <a href="#" title="Delete row" class="removeProductIcon" role="button"><i
+                    class="bi bi-trash-fill"></i></a>
+              </div>
+            </div>
+            <button type="button" id="addProduct" class="btn btn-secondary">+ Add more</button>
+          </div>
+
+          <h3>Shipping Address</h3>
+          <div class="row align-items-start">
+            <div class="col-md-8">
+              <label for="customer_address_id">Shipping Address On Record</label>
+              <!-- <div id="customer_addresses_block"></div> -->
+              <select id="customer_address_id" name="customer_address_id">
+              </select>
+              <textarea id="shipping_address" name="shipping_address" class="form-control"></textarea>
+            </div>
+            <div class="col-md-4 align-self-center">
+              <label class="form-check-label" for="address_different">
+                Different?
+              </label>
+              <div class="form-check form-switch">
+                <input class="form-check-input concernSwitch history" type="checkbox" value="0" role="switch"
+                  id="address_different" name="address_different">
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="row align-items-start" id="newAddressBlock">
+
+            <div class="col-md-8">
+              <label for="new_address">New Shipping Address</label>
+              <textarea form="newAddressForm" name="new_address" id="new_address" class="form-control"></textarea>
+              <button type="button" form="newAddressForm" id="submitAddress" class="btn btn-primary">Save
+                Address</button>
+            </div>
+            <div class="col-md-4 align-self-center">
+              &nbsp;
+            </div>
+
+          </div> -->
+
+          
+          <h3>Payment Information</h3>
+          
+          <div class="row align-items-start">
+            <div class="col-md-8">
+              <label for="payment_method">Payment method</label>
+              <!-- <input type="text" name="payment_method" id="payment_method" class="form-control" disabled /> -->
+              <select name="payment_method_id" id="payment_method" class="form-control">
+                <option disabled selected value> -- Select Method -- </option>
+                {% for payment in payments %}
+                <option value="{{ payment.payment_method_id }}">{{ payment.payment_method_name }}</option>
+                {% endfor %}
+              </select>
+              <input type="hidden" name="payment_method_id" id="payment_method_id" class="form-control" disabled />
+            </div>
+            <div class="col-md-4 align-self-center">
+              <label class="form-check-label align-self-center" for="payment_different">
+                Different?
+              </label>
+              <div class="form-check form-switch">
+                <input class="form-check-input concernSwitch history" type="checkbox" value="0" role="switch"
+                  id="payment_different" name="payment_different">
+              </div>
+            </div>
+          </div>
+
+          <div class="row align-items-start newPaymentBlock">
+            <div class="col-md-8">
+              <label for="new_payment_method">New Payment Method</label>
+              <select name="new_payment_method" id="new_payment_method" class="form-control">
+                <option disabled selected value> -- Select Payment -- </option>
+                {% for payment in payments %}
+                <option value="{{ payment.payment_method_id }}">{{ payment.payment_method_name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-4 align-self-center">
+              &nbsp;
+            </div>
+          </div>
+
+          <div class="row align-items-start">
+            <div class="col-md-8">
+              
+              <label for="bank_name">Bank Name and Address On Record</label>
+              <select id="bank_history" name="bank_history">
+              </select>
+              <textarea type="number" name="order_bank" id="order_bank" class="form-control"></textarea>
+
+              <!-- <div id="banks_block">
+
+              </div> -->
+            </div>
+            <div class="col-md-4 align-self-center">
+              <label class="form-check-label" for="bank_name_different">
+                Different?
+              </label>
+              <div class="form-check form-switch">
+                <input class="form-check-input concernSwitch history" type="checkbox" value="0" role="switch"
+                  id="bank_name_different" name="bank_name_different">
+              </div>
+            </div>
+          </div>
+
+          <div class="row align-items-start">
+
+            <div class="row align-items-start newBankBlock">
+              <div class="col-md-8">
+                <label for="bank_name">New Bank name</label>
+                <input form="newBankForm" type="text" name="bank_name" id="bank_name" class="form-control" />
+              </div>
+              <div class="col-md-4 align-self-center">
+                &nbsp;
+              </div>
+            </div>
+
+            <div class="row align-items-start newBankBlock">
+              <div class="col-md-8">
+                <label for="new_bank_address">New Bank address</label>
+                <textarea form="newBankForm" name="new_bank_address" id="new_bank_address"
+                  class="form-control"></textarea>
+                <button type="button" form="newBankForm" id="submitBankAddress" class="btn btn-primary">Save
+                  Bank</button>
+              </div>
+              <div class="col-md-4 align-self-center">
+                &nbsp;
+              </div>
+            </div>
+          </div>
+
+
+
+          <h3>Suspicious Activity</h3>
+          <div class="row align-items-start">
+            <div class="col-md-8">
+              Is there anything suspicious or atypical about the customer ordering that raises suspicions?
+            </div>
+            <div class="col-md-4 align-self-center">
+              <label class="form-check-label" for="atypical_order">
+                Yes
+              </label>
+              <div class="form-check form-switch">
+                <input class="form-check-input concernSwitch activity" type="checkbox" value="0" role="switch"
+                  id="atypical_order" name="atypical_order">
+              </div>
+            </div>
+          </div>
+
+          <div class="row align-items-start">
+            <div class="col-md-8">
+              Is this a larger order than normal for this customer?
+            </div>
+            <div class="col-md-4 align-self-center">
+              <label class="form-check-label" for="larger_order">
+                Yes
+              </label>
+              <div class="form-check form-switch">
+                <input class="form-check-input concernSwitch activity" type="checkbox" value="0" role="switch"
+                  id="larger_order" name="larger_order">
+              </div>
+            </div>
+          </div>
+
+          <div class="row align-items-start">
+            <div class="col-md-8">
+              Is there no clear and legitimate purpose for this product? (End use verification)
+            </div>
+            <div class="col-md-4 align-self-center">
+              <label class="form-check-label" for="end_use_verified">
+                Yes
+              </label>
+              <div class="form-check form-switch">
+                <input class="form-check-input concernSwitch activity" type="checkbox" value="0" role="switch"
+                  id="end_use_verified" name="end_use_verified">
+              </div>
+            </div>
+          </div>
+
+          <div class="row align-items-start">
+            <div class="col-md-8">
+              <label for="order_method">How was the order placed?</label>&nbsp;
+              <select name="order_method" id="order_method" class="form-control" required>
+                <option disabled selected value> -- Select Method -- </option>
+                <option value="1">Phone</option>
+                <option value="2">In-Person</option>
+                <option value="3">Online</option>
+                <option value="4">Standing Order</option>
+              </select>
+            </div>
+            <div class="col-md-4 align-self-center">
+
+            </div>
+          </div>
+
+
+          <h3>Requested Shipping</h3>
+          <p><em>If unsure leave Suspicious indicators unchecked.</em></p>
+          <div class="row align-items-start">
+            <div class="col-md-8">
+              Is the customer requesting urgent or premium shipping?
+            </div>
+            <div class="col-md-4 align-self-center">
+              <label class="form-check-label" for="urgent_shipping">
+                Yes
+              </label>
+              <div class="form-check form-switch">
+                <input class="form-check-input concernSwitch shipping" type="checkbox" value="0" role="switch"
+                  id="urgent_shipping" name="urgent_shipping" form="orderForm">
+              </div>
+            </div>
+          </div>
+
+          <div class="row align-items-start">
+            <div class="col-md-8">
+              Is the customer taking immediate custody of the product?
+            </div>
+            <div class="col-md-4 align-self-center">
+              <label class="form-check-label" for="immediate_custody">
+                No
+              </label>
+              <div class="form-check form-switch">
+                <input class="form-check-input concernSwitch shipping" type="checkbox" value="0" role="switch"
+                  id="immediate_custody" name="immediate_custody" form="orderForm">
+              </div>
+            </div>
+          </div>
+
+          <div class="row align-items-start">
+            <div class="col-md-8">
+              <label class="form-check-label" for="transporter_name">
+                If another person/company is transporting the product, what company is it?
+              </label>
+            </div>
+            <div class="col-md-4 align-self-center">
+              <input type="text" name="transporter_name" id="transporter_name" class="form-control" />
+            </div>
+          </div>
+
+          <div class="row align-items-start">
+            <div class="col-md-8">
+              <label class="form-check-label" for="transporter_address">
+                Transportation Company Address
+              </label>
+            </div>
+            <div class="col-md-4 align-self-center">
+              <input type="text" name="transporter_address" id="transporter_address" class="form-control" />
+            </div>
+          </div>
+
+          <div class="row align-items-start">
+            <div class="col-md-8">
+              <label class="form-check-label" for="transporter_phone">
+                Transportation Company Phone Number
+              </label>
+            </div>
+            <div class="col-md-4 align-self-center">
+              <input type="text" name="transporter_phone" id="transporter_phone" class="form-control" />
+            </div>
+          </div>
+
+          <div class="row align-items-start">
+            <div class="col-md-8">
+              Is this the first time you are using this transportation company?
+            </div>
+            <div class="col-md-4 align-self-center">
+              <label class="form-check-label" for="first_time_transporter">
+                Yes
+              </label>
+              <div class="form-check form-switch">
+                <input class="form-check-input concernSwitch shipping" type="checkbox" value="0" role="switch"
+                  id="first_time_transporter" name="first_time_transporter">
+              </div>
+            </div>
+          </div>
+
+          <div class="row align-items-start">
+            <div class="col-md-8">
+              Will the shipment be verified upon receipt?
+            </div>
+            <div class="col-md-4 align-self-center">
+              <label class="form-check-label" for="shipment_verification">
+                No
+              </label>
+              <div class="form-check form-switch">
+                <input class="form-check-input concernSwitch shipping" type="checkbox" value="0" role="switch"
+                  id="shipment_verification" name="shipment_verification">
+              </div>
+            </div>
+          </div>
+
+          <div class="row align-items-start">
+            <div class="col-md-8">
+              Are there any unusual routing requests about this order? (For example: specifying a specific route that is
+              not the most efficient, stopping at other facilities before the final destination)
+            </div>
+            <div class="col-md-4 align-self-center">
+              <label class="form-check-label" for="unusual_routing">
+                Yes
+              </label>
+              <div class="form-check form-switch">
+                <input class="form-check-input concernSwitch shipping" type="checkbox" value="0" role="switch"
+                  id="unusual_routing" name="unusual_routing">
+              </div>
+            </div>
+          </div>
+
+          <div class="row align-items-start">
+            <div class="col-md-8">
+              Are there any unusual labeling requests from the customer?
+            </div>
+            <div class="col-md-4 align-self-center">
+              <label class="form-check-label" for="unusual_labeling">
+                Yes
+              </label>
+              <div class="form-check form-switch">
+                <input class="form-check-input concernSwitch shipping" type="checkbox" value="0" role="switch"
+                  id="unusual_labeling" name="unusual_labeling">
+              </div>
+            </div>
+          </div>
+
+          <div class="row align-items-start">
+            <div class="col-md-8">
+              Are there any unusual packaging and handling requests that deviate from your company standards or
+              regulations? (e.g. Product needs to be refrigerated and no request for refrigerated transportation)
+            </div>
+            <div class="col-md-4 align-self-center">
+              <label class="form-check-label" for="unusual_handling">
+                Yes
+              </label>
+              <div class="form-check form-switch">
+                <input class="form-check-input concernSwitch shipping" type="checkbox" value="0" role="switch"
+                  id="unusual_handling" name="unusual_handling">
+              </div>
+            </div>
+          </div>
+
+          <div class="row align-items-start">
+            <div class="col-md-8">
+              Does the customer/shipper have appropriate materials and personal protective equipment to receive,
+              transport, and store the chemical?
+            </div>
+            <div class="col-md-4 align-self-center">
+              <label class="form-check-label" for="ppe_concern">
+                No
+              </label>
+              <div class="form-check form-switch">
+                <input class="form-check-input concernSwitch shipping" type="checkbox" value="0" role="switch"
+                  id="ppe_concern" name="ppe_concern">
+              </div>
+            </div>
+          </div>
+
+          <!-- <div class="row align-items-start">
+            <div class="col-md-8">
+              Is the route safe? (Will it travel through hostile/high crime areas?)
+            </div>
+            <div class="col-md-4 align-self-center">
+              <label class="form-check-label" for="route_safety_concern">
+                No
+              </label>
+              <div class="form-check form-switch">
+                <input class="form-check-input concernSwitch shipping" type="checkbox" value="0" role="switch"
+                  id="route_safety_concern" name="route_safety_concern">
+              </div>
+            </div>
+          </div> -->
+
+
+
+
+
+
+        </div>
+
+        <div id="rightPanel" class="col-md-4">
+          <table id="indicatorSummary">
+            <thead>
+              <tr>
+                <th colspan="3">Suspicious Indicator Summary</th>
+              </tr>
+              <tr>
+                <th></th>
+                <th>Current Order</th>
+                <th>Previous Order</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Customer History</td>
+                <td><span id="customer_history_current"></span></td>
+                <td><span id="customer_history_past"></span></td>
+              </tr>
+              <tr>
+                <td>Suspicious Activity</td>
+                <td><span id="customer_activity_current"></span></td>
+                <td><span id="customer_activity_past"></span></td>
+              </tr>
+              <tr>
+                <td>Shipping</td>
+                <td><span id="customer_shipping_current"></span></td>
+                <td><span id="customer_shipping_past"></span></td>
+              </tr>
+              <tr id="totalRow">
+                <td>Total</td>
+                <td><span id="total_current"></span></td>
+                <td><span id="total_past"></span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <br />
+      <button form="orderForm" type="submit" id="orderSubmit" class="btn btn-primary">Save</button>
+      <button form="orderForm" type="button" class="btn btn-primary cancel"
+        onClick="window.location.assign('/orders/customer_order');">Cancel</button>
+    </form>
+  </div>
+
+  <!-- Active Orders Tab Content-->
+  <div class="tab-pane fade" id="activeOrders" role="tabpanel" aria-labelledby="activeOrders-tab">
+    {% if orders -%}
+    <br />
+    <div class="dropdown" id="active-table-selector">
+      <button class="btn btn-primary dropbtn">Select Columns</button>
+      <div class="dropdown-content columnSelector">
+        <!-- Auto Populated -->
+      </div>
+    </div>
+    <table class="database-table" id="orders-table-active">
+      <thead>
+        <tr>
+          <th class="sortable">Date</th>
+          <th class="sortable">Order ID</th>
+          <th class="sortable">Order Number</th>
+          <th class="sortable">Customer Name</th>
+          <th class="sortable">Telephone</th>
+          <th class="sortable">POC Name</th>
+          <th class="sortable">Number Units</th>
+          <th class="sortable">Suspicious Indicators</th>
+          <th class="sortable">Shipping Address</th>
+          <th>Actions</th>
+        </tr>
+        <tr class="columnFilter">
+          <th><input type="text" class="filterbox" name="dateFilter" aria-label="Filter Dates" /></th>
+          <th><input type="text" class="filterbox" name="orderIDFilter" aria-label="Filter Order IDs" /></th>
+          <th><input type="text" class="filterbox" name="OrderNumberFilter" aria-label="Filter Order Numbers" /></th>
+          <th><input type="text" class="filterbox" name="nameFilter" aria-label="Filter Customer Names" /></th>
+          <th><input type="text" class="filterbox" name="telephoneFilter" aria-label="Filter Phone Numbers" /></th>
+          <th><input type="text" class="filterbox" name="pocNameFilter" aria-label="Filter POC Names" /></th>
+          <th><input type="hidden"></th>
+          <th><input type="hidden"></th>
+          <th><input type="text" class="filterbox" name="addressFilter" aria-label="Filter Shipping Addresses" /></th>
+          <th><input type="hidden"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for order in orders if order['delivery_date'] != '' and order['active_order'] >= 0 %}
+        <TR data-customerId="{{ order.order_id }}">
+          <TD class="c4">{{order.order_date}}</TD>
+          <TD class="c4">{{order.order_id}}</TD>
+          <TD class="c4">{{order.facility_order_id}}</TD>
+          <TD class="c2">{{order.customer_name}}</TD>
+          <TD class="c3">{{order.phone_number}}</TD>
+          <TD class="c4">{{order.poc_name}}</TD>
+          <TD class="c4">{{order.num_units|int}}</TD>
+          <TD class="c4">
+            {{ order.address_different + order.bank_name_different + order.bank_address_different + order.payment_different + order.atypical_order +
+              order.larger_order + order.end_use_verified + order.urgent_shipping + order.immediate_custody + order.first_time_transporter +
+              order.shipment_verification + order.unusual_routing + order.unusual_labeling + order.unusual_handling + order.ppe_concern + order.route_safety_concern }}
+          </TD>
+          <TD class="c4">{{order.shipping_address}}</TD>
+          <TD class="c5">
+            <a href="#" title="Edit {{ order.order_id }}" data-item_id="{{ order.order_id }}" class="editIcon"
+              role="button"><i class="bi bi-pencil-fill"></i></a>
+            <a href="#" title="Delete {{ order.order_id }}" data-item_id="{{ order.order_id }}" class="deleteIcon"
+              role="button"><i class="bi bi-trash-fill"></i></a>
+          </TD>
+        </TR>
+        {% endfor %}
+      </tbody>
+    </table>
+    {%- endif %}
+  </div>
+
+  <!-- All Orders Tab Content-->
+  <div class="tab-pane fade" id="allOrders" role="tabpanel" aria-labelledby="allOrders-tab">
+    {% if orders -%}
+    <br />
+    <div class="dropdown" id="all-table-selector">
+      <button class="btn btn-primary dropbtn">Select Columns</button>
+      <div class="dropdown-content columnSelector">
+        <!-- Auto Populated -->
+      </div>
+    </div>
+    <table class="database-table" id="orders-table-all">
+      <thead>
+        <tr>
+          <th class="sortable">Date</th>
+          <th class="sortable">Order ID</th>
+          <th class="sortable">Order Number</th>
+          <th class="sortable">Customer Name</th>
+          <th class="sortable">Telephone</th>
+          <th class="sortable">POC Name</th>
+          <th class="sortable">Number Units</th>
+          <th class="sortable">Suspicious Indicators</th>
+          <th class="sortable">Shipping Address</th>
+          <th>Actions</th>
+        </tr>
+        <tr class="columnFilter">
+          <th><input type="text" class="filterbox" name="dateFilter" aria-label="Filter Dates" /></th>
+          <th><input type="text" class="filterbox" name="orderIDFilter" aria-label="Filter Order IDs" /></th>
+          <th><input type="text" class="filterbox" name="OrderNumberFilter" aria-label="Filter Order Numbers" /></th>
+          <th><input type="text" class="filterbox" name="nameFilter" aria-label="Filter Customer Names" /></th>
+          <th><input type="text" class="filterbox" name="telephoneFilter" aria-label="Filter Phone Numbers" /></th>
+          <th><input type="text" class="filterbox" name="pocNameFilter" aria-label="Filter POC Names" /></th>
+          <th><input type="hidden"></th>
+          <th><input type="hidden"></th>
+          <th><input type="text" class="filterbox" name="addressFilter" aria-label="Filter Shipping Addresses" /></th>
+          <th><input type="hidden"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for order in orders %}
+        <TR data-customerId="{{ order.order_id }}">
+          <TD class="c4">{{order.order_date}}</TD>
+          <TD class="c4">{{order.order_id}}</TD>
+          <TD class="c4">{{order.facility_order_id}}</TD>
+          <TD class="c2">{{order.customer_name}}</TD>
+          <TD class="c3">{{order.phone_number}}</TD>
+          <TD class="c4">{{order.poc_name}}</TD>
+          <TD class="c4">{{order.num_units|int}}</TD>
+          <TD class="c4">
+            {{ order.address_different + order.bank_name_different + order.bank_address_different + order.payment_different + order.atypical_order +
+              order.larger_order + order.end_use_verified + order.urgent_shipping + order.immediate_custody + order.first_time_transporter +
+              order.shipment_verification + order.unusual_routing + order.unusual_labeling + order.unusual_handling + order.ppe_concern + order.route_safety_concern }}
+          </TD>
+          <TD class="c4">{{order.shipping_address}}</TD>
+          <TD class="c5">
+            <a href="#" title="Edit {{ order.order_id }}" data-item_id="{{ order.order_id }}" class="editIcon"
+              role="button"><i class="bi bi-pencil-fill"></i></a>
+            <a href="#" title="Delete {{ order.order_id }}" data-item_id="{{ order.order_id }}" class="deleteIcon"
+              role="button"><i class="bi bi-trash-fill"></i></a>
+          </TD>
+        </TR>
+        {% endfor %}
+      </tbody>
+    </table>
+    {%- endif %}
+  </div>
+</div>
+
+<p class="important">
+
+<div class="row">
+  <div id="table-section" class="col-md-8">
+    <!--   Consider using a library like https://github.com/plumdog/flask_table   -->
+
+  </div>
+
+  <div id="form-section" class="col-md-3">
+
+  </div>
+</div>
+
+<form name="newAddressForm" id="newAddressForm" method="post" action="/orders/new_address"></form>
+<form name="newBankForm" id="newBankForm" method="post" action="/orders/new_address" class="newBankBlock"></form>
+
+{% endblock %}

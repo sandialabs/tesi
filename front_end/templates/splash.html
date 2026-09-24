@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Splash Screen</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        #title {
+            font-size: xx-large;
+        }
+
+        #subtitle {
+            font-size: large;
+            font-weight: 400;
+        }
+
+        #splash {
+            text-align: center;
+            background-color: #fff;
+            max-width: 640px;
+            padding: 30px;
+        }
+
+        #sandiaLogo {
+            width: 45%;
+            height: auto;
+            margin-top: 15px;
+        }
+
+        #starting {
+            float: left;
+            margin-block-end: 5px;
+            font-size: larger;
+        }
+    </style>
+    <script src="{{ url_for('static', filename='/script.js') }}"></script>
+</head>
+<body>
+    <div id="splash">
+        <h1 id="title">TESI
+            <section id="subtitle">The Transaction Evaluation for Suspicious Indicators Tool</section>
+        </h1>
+        
+        <div id="HeaderLogo"><img src="../static/assets/TESI Logo Thumbnail.png" alt="TESI Logo" /></div>
+        <div><img src="../static/assets/SNL_Horizontal_Black_Blue.jpg" alt="Sandia National Laboratories Logo" id="sandiaLogo" /></div>
+        <p id="starting">Starting...</p>
+    </div>
+
+    <script>
+        setTimeout(function() {
+            window.location.href = "{{ url_for('general_blueprint.home') }}";
+        }, 3000); // Adjust the delay as needed
+    </script>
+</body>
+</html>

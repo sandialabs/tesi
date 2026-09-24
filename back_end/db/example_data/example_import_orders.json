@@ -1,0 +1,41 @@
+{
+    "order_date": "12/05/2023", 
+    "customer_id": 1, 
+    "poc_name": "John Smith", 
+    "num_units": 3, 
+    "address_different": false,
+    "bank_name_different": false, 
+    "bank_address_different": false, 
+    "payment_different": false, 
+    "atypical_order": false, 
+    "larger_order": false,
+    "end_use_verified": false, 
+    "urgent_shipping": false, 
+    "immediate_custody": false, 
+    "first_time_transporter": false, 
+    "shipment_verification": false, 
+    "unusual_routing": false, 
+    "unusual_labeling": false, 
+    "unusual_handling": false, 
+    "ppe_concern": false, 
+    "route_safety_concern": false, 
+    "delivery_date": "12/12/2023",
+    "products": [
+        {
+            "product_id": 1,
+            "quantity": 7
+        },
+        {
+            "product_id": 2,
+            "quantity": 5
+        },
+        {
+            "product_id": 3,
+            "quantity": 41
+        },
+        {
+            "product_id": 4,
+            "quantity": 12
+        }        
+    ]
+}

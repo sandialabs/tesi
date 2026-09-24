@@ -1,0 +1,20 @@
+  /* Switch controls */
+  .form-switch .form-check-input.concernSwitch {
+    width: 4.3em;
+    height: 1.8em;
+    margin-top: 1em;
+  }
+
+  .form-switch input.form-check-input:checked::before {
+    content: "Yes";
+    padding-left: .9em;
+    color: white;
+    font-size: .9em;
+}
+
+.form-switch input.form-check-input::before {
+    content: "No";
+    padding-left: 2.4em;
+    color: var(--tesi-blue);
+    font-size: .9em;
+}

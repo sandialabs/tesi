@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block title %}Import Data{% endblock %}
+{% block head %}
+{{ super() }}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/orderFormStyles.css') }}">
+<style type="text/css">
+  .important {
+    color: #336699;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+  <h3></h3>
+  {% if data %}
+    <form action="/manage_data/download_file" method="post" id="getDownloadFile" enctype="multipart/form-data">
+      <input type="hidden" name="downloadable-items-filepath" id="downloadable-items-filepath" value="{{ export_filepath }}"/>
+      <div>
+        <h3 style="display: inline; padding-right: 0.5cm;">The data was extracted from the database successfully!</h3>
+        <button type="submit" class="btn btn-primary" style="vertical-align: top;">Download</button>
+      </div>
+    </form>
+    <br>
+    <p>Below is a quick view of the data. Please click the "Download" button to download it to your computer.</p>
+    {{ data | safe }}
+  {% else %}
+    <p>ERROR: No Data</p>
+  {% endif %}
+  <br>
+  <a href="/manage_data/data_landing_page">Go back to download or import more data.</a>
+  <br>
+  <br>
+{% endblock %}

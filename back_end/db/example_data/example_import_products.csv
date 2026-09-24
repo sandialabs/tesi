@@ -1,0 +1,5 @@
+Product Name,CAS Number,Physical State ID,Material Packaging ID,Size,Hazard Codes,Other Issues,Concerns,Facility Product ID
+Chlorine,7782505,1,1,1000 L,H313,Dual Use Good,False,S-123456
+Arsine,7784421,2,2,35 L,H314,Dual Use Good,True,S-123457
+Boron trichloride,10294345,3,3,2 L,H313,,False,S-123458
+Sodium Cyanide,143339,2,4,1000 kg,H314,Dual Use Good,False,S-123459

@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block title %}Data Page{% endblock %}
+{% block head %}
+{{ super() }}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/orderFormStyles.css') }}">
+<style type="text/css">
+  .important {
+    color: #336699;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+  <h3>Data Management</h3>
+  <br>
+  <p>Would you like to import new data into the database or download the data currently in the database?</p>
+  <br>
+  <form action="import_landing" method="post" id="dataImport" enctype="multipart/form-data" style="display: inline; padding-left: 0.2cm; vertical-align: top;">
+    <input type="hidden" name="import-data" value="Import Data">
+    <button type="submit" class="btn btn-primary">Import Data</button>
+  </form>
+  <form action="export_landing" method="post" id="dataExport" enctype="multipart/form-data" style="display: inline; padding-left: 1cm; vertical-align: top;">
+    <input type="hidden" name="export-data" value="Download Data">
+    <button type="submit" class="btn btn-primary">Export Data</button>
+  </form>
+  <br>
+  <br>
+{% endblock %}

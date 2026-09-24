@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% block title %}Index{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    .important { color: #336699; }
+  </style>
+{% endblock %}
+{% block content %}
+  <h1>Product Details</h1>
+  <p class="important">
+    Products Form Here
+
+
+<div>Product Number: {{product.id}}</div>
+<div>Product Name: {{product.name}}</div>
+<div>CAS: {{product.cas_numbers}}</div>
+<div>Physical State: {{product.physical_state_id}}</div>
+<div>Packaging: {{product.packaging}}</div>
+<div>Hazard Codes: {{product.hazard_codes}}</div>
+<div>Other Issues: {{product.other_issues}}</div>
+<div>Concerns: {{product.concerns}}</div>
+
+{% endblock %}
+
+

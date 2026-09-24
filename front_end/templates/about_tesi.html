@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block title %}About TESI{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    .important { color: #336699; }
+  </style>
+{% endblock %}
+{% block content %}
+  <h1>About TESI</h1>
+  <p class="important">
+    <p>
+      Copyright 2023 National Technology & Engineering Solutions of Sandia, LLC (NTESS). Under the terms of Contract DE-NA0003525 with NTESS, the U.S. Government retains certain rights in this software.
+    </p>
+
+    <h3>TESI User Guide</h3>
+    <p>Please refer to the <a href="https://gcbs.sandia.gov/tools/transaction-evaluation-for-suspicious-indicators-tesi/">TESI User Guide</a> which provides instructions for the use of the application and for training purposes.</p>
+    
+    <h2>MIT License</h2>
+    <p>
+      Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+    </p>
+    <p>
+      The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+    </p>
+    
+    <p>
+      THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+    </p>
+    <h3>Third-Party License Information</h3>
+    <!-- <p>TESI is built with several third-party software libraries. Please refer to the <a href="{{ url_for('general_blueprint.licenses') }}">third-party licenses</a> prior to use or distribution.</p>
+    </p> -->
+    <p>
+      IMPORTANT NOTICE: At installation, the Transaction Evaluation for Suspicious Indicators (TESI) accesses and installs certain open-source packages that are not part of the TESI package as distributed.  Pyinstaller is governed by the GNU General Public License v2 (GPL). By installing TESI, you are accepting these licenses for these packages.  We strongly advise consulting with a legal expert or attorney prior to any redistribution or modification of the TESI software to ensure compliance with the applicable licensing terms.
+    </p>
+{% endblock %}

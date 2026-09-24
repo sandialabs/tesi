@@ -1,0 +1,6 @@
+order_id,order_date,customer_id,poc_name,address_different,bank_name_different,bank_address_different,payment_different,atypical_order,larger_order,end_use_verified,urgent_shipping,immediate_custody,first_time_transporter,shipment_verification,unusual_routing,unusual_labeling,unusual_handling,ppe_concern,route_safety_concern,delivery_date,order_method,transporter_name,transporter_address,transporter_phone
+1,2023-12-06,1,Andrew Toba,0,0,,0,0,0,0,1,0,0,1,0,0,1,0,0,,2,,,
+2,2023-12-07,3,Omar Canon,1,0,,1,0,1,0,1,1,1,1,1,0,1,1,1,,3,,,
+4,2023-12-11,3,Omar Canon,0,0,,0,0,0,0,0,0,0,0,0,0,0,0,0,2023-12-13,4,,,
+6,2023-12-13,2,Louis Rivera,0,0,,1,0,1,0,0,0,0,1,0,0,0,0,0,,1,Logistica Global,"4200 Avenida Alto, Santiago, Chile",5552322020
+7,2023-11-28,4,Omar Canon,0,0,,0,0,1,0,0,0,0,0,0,0,0,0,0,2023-11-30,1,,,

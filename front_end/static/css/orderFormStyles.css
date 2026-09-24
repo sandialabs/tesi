@@ -1,0 +1,234 @@
+/***  Style for the Company Dropdown control  ***/
+
+/* Dropdown Button */
+#cmdCompany {
+  background-color: #04aa6d;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Dropdown button on hover & focus */
+#cmdCompany:hover,
+#cmdCompany:focus {
+  background-color: #3e8e41;
+}
+
+/* The search field */
+#myInput {
+  box-sizing: border-box;
+  background-image: url("searchicon.png");
+  background-position: 14px 12px;
+  background-repeat: no-repeat;
+  font-size: 16px;
+  padding: 14px 20px 12px 45px;
+  border: none;
+  border-bottom: 1px solid #ddd;
+}
+
+/* The search field when it gets focus/clicked on */
+#myInput:focus {
+  outline: 3px solid #ddd;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 14px;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f6f6f6;
+  min-width: 230px;
+  border: 1px solid #ddd;
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {
+  display: inline-block;
+}
+
+h2,
+h3 {
+  margin-top: 1em;
+}
+
+.orderFormDisplay {
+  visibility: hidden;
+  height: 0;
+}
+
+.orderFormDisplay div {
+  height: 0;
+}
+
+#customer_heading {
+  display: inline-block;
+  margin-block-start: unset;
+  margin: 0.7em;
+  color: var(--tesi-purple);
+}
+
+#sanctioned_entity {
+  display: none;
+  color: var(--tesi-orange);
+}
+
+#leftPanel > div {
+  margin-top: 0.5em;
+}
+
+.product_name {
+  min-width: 8em;
+}
+
+.hazardousFlag,
+.securityFlag {
+  display: inline-block;
+}
+
+#productList .repeatable .product_name,
+.unitSize,
+.number_units,
+.other_issues {
+  display: inline-block;
+  width: unset;
+  margin-right: 0em;
+}
+
+/* Switch controls */
+.form-switch .form-check-input.concernSwitch {
+  width: 3em;
+  height: 1.3em;
+  margin-left: -2.2em;
+}
+
+.form-check {
+  display: inline-block;
+  margin-bottom: -0.3rem;
+}
+
+.concernSwitch:checked {
+  background-color: var(--tesi-orange);
+  border-color: var(--tesi-orange);
+}
+
+#addProduct {
+  margin: 0.4em 0em;
+}
+
+#newAddressBlock,
+.newBankBlock,
+.newPaymentBlock {
+  display: none;
+}
+
+/* Indicator Summary Table */
+#indicatorSummary {
+  position: -webkit-sticky;
+  position: sticky;
+}
+
+#indicatorSummary,
+#indicatorSummary th,
+#indicatorSummary td {
+  border: silver solid 1px;
+}
+
+#indicatorSummary td,
+th {
+  padding: 0.3em;
+}
+
+#indicatorSummary th {
+  background-color: var(--tesi-blue);
+}
+
+#indicatorSummary th {
+  text-align: center;
+}
+
+#totalRow {
+  font-weight: bold;
+}
+
+#customer_history_current,
+#customer_activity_current,
+#customer_shipping_current,
+#total_current {
+  color: var(--tesi-red);
+}
+
+textarea:read-only {
+  background-color: Gainsboro;
+}
+
+.sanctioned {
+  border: 3px solid var(--tesi-orange);
+}
+
+.sanctioned_warning {
+  color: var(--tesi-orange);
+  font-weight: bold;
+}
+
+.removeProductIcon {
+  display: none;
+}
+
+.hidden {
+  display: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.columnSelector input {
+  margin-right: 0.4em;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content label {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content label:hover {
+  background-color: #f1f1f1;
+}
+
+.show {
+  display: block;
+}

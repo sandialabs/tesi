@@ -1,0 +1,314 @@
+{% extends "layout.html" %}
+{% block title %}Index{% endblock %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/facilitiesPageStyles.css') }}">
+{% endblock %}
+{% block content %}
+<h1>Facility Overview</h1>
+<p>
+  To be completed about the company that is using this tool
+</p>
+
+{% set data = facility[0] %}
+<div class="col-md-7">
+  <form id="facilityOverview" name="facilityOverview" method="post" action="#">
+    <input type="hidden" name="facility_id" id="facility_id" class="form-control" value="{{ data.facility_id }}" />
+    <div class="row mb-3">
+      <label class="col-sm-4 col-form-label" for="facility_name">
+        Facility Name
+      </label>
+      <div class="col-sm-8">
+        <input type="text" name="facility_name" id="facility_name" class="form-control" value="{{ data.facility_name }}" required />
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label class="col-sm-4 col-form-label" for="facility_country">
+        Country of Facility
+      </label>
+      <div class="col-sm-8">
+        <input type="text" name="facility_country" id="facility_country" class="form-control" value="{{ data.facility_country }}" />
+      </div>
+    </div>
+
+    <h2>Past Practices</h2>
+    <fieldset class="row mb-3">
+      <legend class="col-form-label col-sm-4 pt-0">
+        Type of Company <br />
+        (select all that apply)
+      </legend>
+      <div class="col-sm-8">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="retailer" id="retailer" name="company_type" {{ "checked" if (data.company_type) and 'retailer' in data.company_type }}>
+          <label class="form-check-label" for="retailer">
+            Retailer
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="wholesaler" id="wholesaler" name="company_type" {{ "checked" if (data.company_type) and 'wholesaler' in data.company_type }}>
+          <label class="form-check-label" for="wholesaler">
+            Wholesaler
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="chemical_manufacturer" id="chemical_manufacturer" name="company_type" {{ "checked" if (data.company_type) and 'chemical_manufacturer' in data.company_type }}>
+          <label class="form-check-label" for="chemical_manufacturer">
+            Chemical Manufacturer
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="distributor" id="distributor" name="company_type" {{ "checked" if (data.company_type) and 'distributor' in data.company_type }}>
+          <label class="form-check-label" for="distributor">
+            Distributor
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="trans-shipper" id="trans-shipper" name="company_type" {{ "checked" if (data.company_type) and 'trans-shipper' in data.company_type }}>
+          <label class="form-check-label" for="trans-shipper">
+            Trans-shipper
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="other_type" id="other_type" name="company_type" {{ "checked" if (data.company_type) and 'other_type' in data.company_type }}>
+          <label class="form-check-label" for="other_type">
+            Other
+          </label>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="row mb-3">
+      <legend class="col-form-label col-sm-4 pt-0">
+        What type of customer do you serve? <br />
+        (Select all that apply)
+      </legend>
+      <div class="col-sm-8">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="end_user" id="end_user" name="types_of_customers" {{ "checked" if (data.types_of_customers) and 'end_user' in data.types_of_customers }}>
+          <label class="form-check-label" for="end_user">
+            End-User
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="chemical_company" id="chemical_company" name="types_of_customers" {{ "checked" if (data.types_of_customers) and 'chemical_company' in data.types_of_customers }}>
+          <label class="form-check-label" for="chemical_company">
+            Chemical Company
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="resaler" id="resaler" name="types_of_customers" {{ "checked" if (data.types_of_customers) and 'resaler' in data.types_of_customers }}>
+          <label class="form-check-label" for="resaler">
+            Resaler
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="chemical_distribution" id="chemical_distribution" name="types_of_customers" {{ "checked" if (data.types_of_customers) and 'chemical_distribution' in data.types_of_customers }}>
+          <label class="form-check-label" for="chemical_distribution">
+            Chemical Distribution
+          </label>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="row mb-3">
+      <legend class="col-form-label col-sm-4 pt-0">
+        How are chemicals transported from your facility <br />
+        (Select all that apply)
+      </legend>
+      <div class="col-sm-8">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="transportation" id="personal_vehicle" value="personal_vehicle" {{ "checked" if (data.transportation) and 'personal_vehicle' in data.transportation }}>
+          <label class="form-check-label" for="personal_vehicle">
+            Customer personal vehicle
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="transportation" id="commercial_truck" value="commercial_truck" {{ "checked" if (data.transportation) and 'commercial_truck' in data.transportation }}>
+          <label class="form-check-label" for="commercial_truck">
+            Commercial Truck
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="transportation" id="tanker_truck" value="tanker_truck" {{ "checked" if (data.transportation) and 'tanker_truck' in data.transportation }}>
+          <label class="form-check-label" for="tanker_truck">
+            Tanker truck
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="transportation" id="rail" value="rail" {{ "checked" if (data.transportation) and 'rail' in data.transportation }}>
+          <label class="form-check-label" for="rail">
+            Rail
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="transportation" id="ship" value="ship" {{ "checked" if (data.transportation) and 'ship' in data.transportation }}>
+          <label class="form-check-label" for="ship">
+            Ship
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="transportation" id="air_freight" value="air_freight" {{ "checked" if (data.transportation) and 'air_freight' in data.transportation }}>
+          <label class="form-check-label" for="air_freight">
+            Air
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="transportation" id="other_transport" value="other_transport" {{ "checked" if (data.transportation) and 'other_transport' in data.transportation }}>
+          <label class="form-check-label" for="other_transport">
+            Other
+          </label>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="row mb-3">
+      <legend class="col-form-label col-sm-4 pt-0">
+        Who coordinates shipping logistics for chemicals leaving your facility?
+      </legend>
+      <div class="col-sm-8">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="shipping_coordinator" id="you_coordinate" value="you_coordinate" {{ "checked" if (data.shipping_coordinator) and 'you_coordinate' in data.shipping_coordinator }}>
+          <label class="form-check-label" for="you_coordinate">
+            You
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="shipping_coordinator" id="customer_coord" value="customer_coord" {{ "checked" if (data.shipping_coordinator) and 'customer_coord' in data.shipping_coordinator }}>
+          <label class="form-check-label" for="customer_coord">
+            Customer
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="shipping_coordinator" id="third_party" value="third_party" {{ "checked" if (data.shipping_coordinator) and 'third_party' in data.shipping_coordinator }}>
+          <label class="form-check-label" for="third_party">
+            Third Party
+          </label>
+        </div>
+      </div>
+    </fieldset>
+
+    <div class="row mb-3">
+      <label class="col-sm-4 col-form-label" for="sales_tracking">
+        Do you have any processes where you track your sales after they have left your facility?
+      </label>
+      <div class="col-sm-8">
+        <div class="form-check form-switch">
+          <input class="form-check-input concernSwitch sales_tracking" type="checkbox" value="Yes" role="switch"
+            id="sales_tracking" name="sales_tracking" {{ "checked" if data.sales_tracking }}>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mb-3">
+      <label class="col-sm-4 col-form-label" for="shipment_verification">
+        Do you verify shipments are received after they have left your facility?
+      </label>
+      <div class="col-sm-8">
+        <div class="form-check form-switch">
+          <input class="form-check-input concernSwitch" type="checkbox" value="Yes" role="switch"
+            id="shipment_verification" name="shipment_verification" {{ "checked" if data.shipment_verification }}>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label class="col-sm-4 col-form-label" for="permits_required">
+        Is there a requirement for special licenses or permits prior to shipping materials at your facility?
+      </label>
+      <div class="col-sm-8">
+        <div class="form-check form-switch">
+          <input class="form-check-input concernSwitch" type="checkbox" value="Yes" role="switch" id="permits_required"
+            name="permits_required" {{ "checked" if data.shipment_verification }}>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label class="col-sm-4 col-form-label" for="preparation_procedures">
+        Does your facility have any operating procedures or regulations you follow related to preparing products for
+        shipments?
+      </label>
+      <div class="col-sm-8">
+        <div class="form-check form-switch">
+          <input class="form-check-input concernSwitch" type="checkbox" value="Yes" role="switch" id="preparation_procedures"
+            name="preparation_procedures" {{ "checked" if data.preparation_procedures }}>
+        </div>
+      </div>
+    </div>
+
+    <fieldset class="row mb-3">
+      <legend class="col-form-label col-sm-4 pt-0">
+        What payment types do you generally accept? <br />
+        (Select Yes for all applicable)
+      </legend>
+      <div class="col-sm-8">
+        {% for payment in payments %}
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="{{payment.payment_method_name}}" id="payment_{{payment.payment_method_id}}" name="payment_types" {{ "checked" if (data.payment_types) and payment.payment_method_name in data.payment_types}}>
+          <label class="form-check-label" for="payment_{{payment.payment_method_id}}">
+            {{payment.payment_method_name}}
+          </label>
+        </div>
+        {% endfor %}
+
+      </div>
+    </fieldset>
+
+    <div class="row mb-3">
+      <label class="col-sm-4 col-form-label" for="permit_required">
+        How are orders generally placed?
+      </label>
+      <div class="col-sm-8">
+        <select name="order_methods" title="Order Method" class="unitSize">
+          <option disabled selected value> -- Select Method -- </option>
+          <option value="online" {{ "selected" if (data.order_methods) and 'online' in data.order_methods}}>Online</option>
+          <option value="phone" {{ "selected" if (data.order_methods) and 'phone' in data.order_methods}}>Phone</option>
+          <option value="in-person" {{ "selected" if (data.order_methods) and 'in-person' in data.order_methods}}>In-Person</option>
+          <option value="standing-order" {{ "selected" if (data.order_methods) and 'standing-order' in data.order_methods}}>Standing Order</option>
+        </select>
+      </div>
+    </div>
+
+    <fieldset class="row mb-3">
+      <legend class="col-form-label col-sm-4 pt-0">
+        How is payment generally received?
+      </legend>
+      <div class="col-sm-8">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="payment_timing" id="upon_receipt" value="upon_receipt" {{ "checked" if (data.payment_timing) and 'upon_receipt' in data.payment_timing}}>
+          <label class="form-check-label" for="upon_receipt">
+            Payment upon receipt
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="payment_timing" id="upon_delivery" value="upon_delivery" {{ "checked" if (data.payment_timing) and 'upon_delivery' in data.payment_timing}}>
+          <label class="form-check-label" for="upon_delivery">
+            Payment upon delivery
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="payment_timing" id="order_deposit" value="order_deposit" {{ "checked" if (data.payment_timing) and 'order_deposit' in data.payment_timing}}>
+          <label class="form-check-label" for="order_deposit">
+            Deposit placed when ordered
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="payment_timing" id="invoiced" value="invoiced" {{ "checked" if (data.payment_timing) and 'invoiced' in data.payment_timing}}>
+          <label class="form-check-label" for="invoiced">
+            Invoiced
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="payment_timing" id="when_ordered" value="when_ordered" {{ "checked" if (data.payment_timing) and 'when_ordered' in data.payment_timing}}>
+          <label class="form-check-label" for="when_ordered">
+            Payment upon ordering
+          </label>
+        </div>
+      </div>
+    </fieldset>
+
+    <br />
+    <button type="submit" class="btn btn-primary" form="facilityOverview">Save</button>
+    <button type="button" class="btn btn-primary cancel" onCLick="window.location.reload()">Cancel</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,11 @@
+dist/**
+build/**
+**/__pycache__/**
+**/__pycache__/
+back_end/endpoint_blueprints/__pycache__/
+
+back_end/models/__pycache__/
+
+*.pyc
+dist/app
+.DS_Store

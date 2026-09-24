@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block title %}Import Data{% endblock %}
+{% block head %}
+{{ super() }}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/orderFormStyles.css') }}">
+<style type="text/css">
+  .important {
+    color: #336699;
+  }
+</style>
+{% endblock %}
+
+
+{% block content %}
+  <h3>The data was imported into the database successfully!</h3>
+  <br>
+  {% if data %}
+    <p>Below is a quick view of the data provided.</p>
+    {{ data | safe }}
+  {% else %}
+    <p>ERROR: No Data Provided</p>
+  {% endif %}
+  <br>
+  <a href="/manage_data/data_landing_page">Go back to download or import more data.</a>
+  <br>
+  <br>
+{% endblock %}
